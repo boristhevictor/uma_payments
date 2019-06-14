@@ -30,11 +30,14 @@ public class EmployeeService implements EmployeeCRUDService {
         if(id==null) {
             return Optional.empty();
         }
-        return employeeRepository.findById(id);
+        Optional<Employee> foundEmployee = employeeRepository.findById(id);
+        log.debug("Fetched: {}", foundEmployee.isPresent()? foundEmployee.get() : "nothing for id: " + id);
+        return foundEmployee;
     }
 
     @Override
     public Employee save(Employee employee) {
+        log.debug("Creating employee: {}", employee );
         return employeeRepository.save(requireNonNull(employee, "Null employee passed to save"));
     }
 
@@ -51,6 +54,7 @@ public class EmployeeService implements EmployeeCRUDService {
 
     private Optional<Employee> updateEmployee(Optional<Employee> updateCandidate, Employee employee) {
         if(updateCandidate.isPresent()) {
+            log.debug("Updating employee from: {}, to: {}", updateCandidate.get(), employee );
             Employee updatedEmployee = updateCandidate.get();
             updatedEmployee.setName(employee.getName())
                     .setSurname(employee.getSurname())
