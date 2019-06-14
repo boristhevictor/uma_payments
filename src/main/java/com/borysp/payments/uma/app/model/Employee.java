@@ -12,7 +12,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@Accessors(fluent = true, chain = true)
+@Accessors(chain = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Employee {

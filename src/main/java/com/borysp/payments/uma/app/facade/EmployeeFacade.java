@@ -1,7 +1,9 @@
 package com.borysp.payments.uma.app.facade;
 
+import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.service.employee.crud.EmployeeCRUDService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -14,9 +16,11 @@ import java.util.stream.Collectors;
 public class EmployeeFacade {
 
     private final EmployeeCRUDService employeeCRUDService;
+    private ModelMapper modelMapper;
 
-    public EmployeeFacade(EmployeeCRUDService employeeCRUDService) {
+    public EmployeeFacade(EmployeeCRUDService employeeCRUDService, ModelMapper modelMapper) {
         this.employeeCRUDService = employeeCRUDService;
+        this.modelMapper = modelMapper;
     }
 
     public List<Employee> returnAllEmployess() {
@@ -36,6 +40,14 @@ public class EmployeeFacade {
         }
     }
 
+    public Employee fromDTO(EmployeeDTO dto){
+        return modelMapper.map(dto, Employee.class);
+    }
+
+    public Optional<Employee> updateSingleEmployee(Integer id, Employee updated) {
+        return employeeCRUDService.update(id, updated);
+    }
+
     public Optional<Employee> returnSingleEmployee(Integer id) {
         return employeeCRUDService.fetch(id);
     }
@@ -48,4 +60,5 @@ public class EmployeeFacade {
         return fetched.map(mapping);
 
     }
+
 }

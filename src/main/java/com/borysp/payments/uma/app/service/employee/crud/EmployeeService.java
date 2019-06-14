@@ -52,11 +52,10 @@ public class EmployeeService implements EmployeeCRUDService {
     private Optional<Employee> updateEmployee(Optional<Employee> updateCandidate, Employee employee) {
         if(updateCandidate.isPresent()) {
             Employee updatedEmployee = updateCandidate.get();
-            updatedEmployee
-                    .name(employee.name())
-                    .surname(employee.surname())
-                    .salary(employee.salary())
-                    .grade(employee.grade());
+            updatedEmployee.setName(employee.getName())
+                    .setSurname(employee.getSurname())
+                    .setSalary(employee.getSalary())
+                    .setGrade(employee.getGrade());
         }
         return updateCandidate;
     }

@@ -45,7 +45,7 @@ public class EmployeeServiceTest {
     public void updatesAnEmployee() {
         //given
         int id=0;
-        Employee employee = new Employee("Adrien", "Monk").grade(1).salary(25000);
+        Employee employee = new Employee("Adrien", "Monk").setGrade(1).setSalary(25000);
         //when
         Mockito.doReturn(Optional.of(employee)).when(employeeRepository).findById(id);
         Employee result = employeeService.update(id, employee).get();
