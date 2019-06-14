@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.*;
@@ -62,5 +63,10 @@ public class EmployeeService implements EmployeeCRUDService {
     public CRUDEntityService<Employee, Integer> delete(Integer id) {
         employeeRepository.deleteById(id);
         return this;
+    }
+
+    @Override
+    public List<Employee> fetchAll() {
+        return employeeRepository.findAll();
     }
 }

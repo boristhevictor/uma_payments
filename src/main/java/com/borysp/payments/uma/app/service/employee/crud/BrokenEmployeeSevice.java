@@ -5,6 +5,7 @@ import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,5 +30,10 @@ public class BrokenEmployeeSevice implements EmployeeCRUDService {
     @Override
     public CRUDEntityService<Employee, Integer> delete(Integer id) {
         throw new RuntimeException("Unable to delete");
+    }
+
+    @Override
+    public List<Employee> fetchAll() {
+        throw new RuntimeException("Unable to fetch all");
     }
 }
