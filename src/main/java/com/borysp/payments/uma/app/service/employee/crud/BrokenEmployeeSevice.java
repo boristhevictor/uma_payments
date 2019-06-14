@@ -36,4 +36,9 @@ public class BrokenEmployeeSevice implements EmployeeCRUDService {
     public List<Employee> fetchAll() {
         throw new RuntimeException("Unable to fetch all");
     }
+
+    @Override
+    public void deleteAll(List<Integer> deleteThese) {
+        throw new RuntimeException("Unable to delete these");
+    }
 }
