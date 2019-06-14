@@ -2,6 +2,7 @@ package com.borysp.payments.uma.app.controller.employee;
 
 import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
 import com.borysp.payments.uma.app.facade.EmployeeFacade;
+import com.borysp.payments.uma.app.model.Employee;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +33,22 @@ public class EmployeeController {
 
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<EmployeeDTO> updateSingle(@RequestBody EmployeeDTO updated, @PathVariable("id") Integer id) {
+        Employee employee = employeeDTOFacade.fromDTO(updated);
+        return employeeDTOFacade.updateSingleEmployee(id, employee)
+                .map(e -> ResponseEntity.ok(new EmployeeDTO(e)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Integer>> delete(@PathVariable("id") Integer id) {
         employeeDTOFacade.deleteForId(id);
-        return ResponseEntity.ok(Collections.singletonMap("id", id));
+        return ResponseEntity.ok(wrapId(id));
+    }
+
+    private Map<String, Integer> wrapId(@PathVariable("id") Integer id) {
+        return Collections.singletonMap("id", id);
     }
 
 }
