@@ -2,12 +2,15 @@ package com.borysp.payments.uma.app.service.employee.crud;
 
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.repository.crud.EmployeeRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {
@@ -42,13 +45,17 @@ public class EmployeeServiceTest {
     public void updatesAnEmployee() {
         //given
         int id=0;
-        Employee employee = new Employee("Adrien", "Monk");
+        Employee employee = new Employee("Adrien", "Monk").grade(1).salary(25000);
         //when
-        Employee spiedResult = Mockito.spy(employeeService.update(id, employee));
+        Mockito.doReturn(Optional.of(employee)).when(employeeRepository).findById(id);
+        Employee result = employeeService.update(id, employee).get();
         //then
         Mockito.verify(employeeRepository, Mockito.times(1)).findById(id);
-        Mockito.verify(spiedResult, Mockito.times(1)).name("Adrien");
-        Mockito.verify(spiedResult, Mockito.times(1)).surname("Monk");
+        Assertions.assertThat(result)
+                .hasFieldOrPropertyWithValue("grade", 1)
+                .hasFieldOrPropertyWithValue("salary", 25000)
+                .hasFieldOrPropertyWithValue("name", "Adrien")
+                .hasFieldOrPropertyWithValue("surname", "Monk");
     }
 
     @Test
