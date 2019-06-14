@@ -21,11 +21,11 @@ public class EmployeeDTO {
     String surname;
 
     public EmployeeDTO(Employee employee) {
-        this.setId(employee.id())
-                .setGrade(employee.grade())
-                .setSalary(employee.salary())
-                .setName(employee.name())
-                .setSurname(employee.surname());
+        this.setId(employee.getId())
+                .setGrade(employee.getGrade())
+                .setSalary(employee.getSalary())
+                .setName(employee.getName())
+                .setSurname(employee.getSurname());
     }
 
 }
