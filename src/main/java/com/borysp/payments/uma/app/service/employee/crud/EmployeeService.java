@@ -3,10 +3,12 @@ package com.borysp.payments.uma.app.service.employee.crud;
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.repository.crud.EmployeeRepository;
 import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Primary
 public class EmployeeService implements EmployeeCRUDService {
 
     private EmployeeRepository employeeRepository;
