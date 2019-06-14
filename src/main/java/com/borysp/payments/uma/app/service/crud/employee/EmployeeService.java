@@ -1,7 +1,7 @@
-package com.borysp.payments.uma.app.service.employee.crud;
+package com.borysp.payments.uma.app.service.crud.employee;
 
 import com.borysp.payments.uma.app.model.Employee;
-import com.borysp.payments.uma.app.repository.crud.EmployeeRepository;
+import com.borysp.payments.uma.app.repository.jpa.employee.EmployeeRepository;
 import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Objects.*;
+import static java.util.Objects.requireNonNull;
 
 @Service
 @Primary
@@ -21,7 +21,7 @@ public class EmployeeService implements EmployeeCRUDService {
 
     private EmployeeRepository employeeRepository;
 
-    EmployeeService(EmployeeRepository employeeRepository){
+    public EmployeeService(EmployeeRepository employeeRepository){
         this.employeeRepository = employeeRepository;
     }
 

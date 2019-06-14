@@ -1,4 +1,4 @@
-package com.borysp.payments.uma.app.service.employee.crud;
+package com.borysp.payments.uma.app.service.crud.employee;
 
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+/** This service spams Exceptions and is intended to test error handling when things go awry*/
 
 @Service
 @Profile("failTests")

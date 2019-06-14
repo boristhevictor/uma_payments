@@ -3,10 +3,9 @@ package com.borysp.payments.uma.app.controller.employee;
 import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
 import com.borysp.payments.uma.app.controller.employee.error.EmployeeNotFoundException;
 import com.borysp.payments.uma.app.controller.employee.lookup.EmployeeLookupParamsModel;
-import com.borysp.payments.uma.app.facade.EmployeeDTOComplexLookupService;
 import com.borysp.payments.uma.app.facade.EmployeeFacade;
 import com.borysp.payments.uma.app.model.Employee;
-import org.springframework.http.MediaType;
+import com.borysp.payments.uma.app.service.lookup.employee.EmployeeLookupService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,23 +19,18 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeFacade employeeFacade;
-    private final EmployeeDTOComplexLookupService employeeComplexLookupFacade;
+    //private final EmployeeLookupService<EmployeeDTO> employeeLookupService;
 
-    public EmployeeController(EmployeeFacade employeeFacade, EmployeeDTOComplexLookupService employeeComplexLookupFacade) {
+    public EmployeeController(EmployeeFacade employeeFacade, EmployeeLookupService<EmployeeDTO> employeeLookupService) {
         this.employeeFacade = employeeFacade;
-        this.employeeComplexLookupFacade = employeeComplexLookupFacade;
+        //this.employeeLookupService = employeeLookupService;
     }
 
     @GetMapping({"/",""})
     public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel pathQuery) {
         if(pathQuery!=null) {
-            return employeeComplexLookupFacade.findBySimpleQuery(pathQuery, EmployeeDTO::new);
+            //return employeeLookupService.findByPathQuery(pathQuery, EmployeeDTO::new);
         }
-        return employeeFacade.returnAllEmployess(EmployeeDTO::new);
-    }
-
-    @GetMapping(value = {"/",""}, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<EmployeeDTO> findMultiCondition(@Valid List<EmployeeLookupParamsModel> model) {
         return employeeFacade.returnAllEmployess(EmployeeDTO::new);
     }
 

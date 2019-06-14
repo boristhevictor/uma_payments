@@ -1,7 +1,8 @@
-package com.borysp.payments.uma.app.service.employee.crud;
+package com.borysp.payments.uma.app.service.crud.employee.crud;
 
 import com.borysp.payments.uma.app.model.Employee;
-import com.borysp.payments.uma.app.repository.crud.EmployeeRepository;
+import com.borysp.payments.uma.app.repository.jpa.employee.EmployeeRepository;
+import com.borysp.payments.uma.app.service.crud.employee.EmployeeService;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
