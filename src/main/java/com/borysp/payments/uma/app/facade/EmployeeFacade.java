@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,5 +34,18 @@ public class EmployeeFacade {
         if(deleteThis!=null) {
             employeeCRUDService.deleteAll(Arrays.asList(deleteThis));
         }
+    }
+
+    public Optional<Employee> returnSingleEmployee(Integer id) {
+        return employeeCRUDService.fetch(id);
+    }
+
+    public <R> Optional<R> returnSingleEmployee(Integer id, Function<? super Employee, R> mapping) {
+        Optional<Employee> fetched = employeeCRUDService.fetch(id);
+        if(fetched.isEmpty()) {
+            return Optional.empty();
+        }
+        return fetched.map(mapping);
+
     }
 }
