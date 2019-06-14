@@ -3,7 +3,7 @@ package com.borysp.payments.uma.app.controller.employee;
 import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
 import com.borysp.payments.uma.app.controller.employee.error.EmployeeNotFoundException;
 import com.borysp.payments.uma.app.controller.employee.lookup.EmployeeLookupParamsModel;
-import com.borysp.payments.uma.app.facade.EmployeeDTOComplexLookupFacade;
+import com.borysp.payments.uma.app.facade.EmployeeDTOComplexLookupService;
 import com.borysp.payments.uma.app.facade.EmployeeFacade;
 import com.borysp.payments.uma.app.model.Employee;
 import org.springframework.http.MediaType;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,17 +20,17 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeFacade employeeFacade;
-    private final EmployeeDTOComplexLookupFacade employeeComplexLookupFacade;
+    private final EmployeeDTOComplexLookupService employeeComplexLookupFacade;
 
-    public EmployeeController(EmployeeFacade employeeFacade, EmployeeDTOComplexLookupFacade employeeComplexLookupFacade) {
+    public EmployeeController(EmployeeFacade employeeFacade, EmployeeDTOComplexLookupService employeeComplexLookupFacade) {
         this.employeeFacade = employeeFacade;
         this.employeeComplexLookupFacade = employeeComplexLookupFacade;
     }
 
     @GetMapping({"/",""})
-    public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel pathQuery, @RequestBody Collection<EmployeeLookupParamsModel> complexQeury) {
-        if(complexQeury!=null) {
-            return employeeComplexLookupFacade.findByCompositeQuery(complexQeury, EmployeeDTO::new);
+    public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel pathQuery) {
+        if(pathQuery!=null) {
+            return employeeComplexLookupFacade.findBySimpleQuery(pathQuery, EmployeeDTO::new);
         }
         return employeeFacade.returnAllEmployess(EmployeeDTO::new);
     }
