@@ -3,6 +3,7 @@ package com.borysp.payments.uma.app.service.employee.crud;
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.repository.crud.EmployeeRepository;
 import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import static java.util.Objects.*;
 @Service
 @Primary
 @Transactional
+@Slf4j
 public class EmployeeService implements EmployeeCRUDService {
 
     private EmployeeRepository employeeRepository;
@@ -61,12 +63,22 @@ public class EmployeeService implements EmployeeCRUDService {
 
     @Override
     public CRUDEntityService<Employee, Integer> delete(Integer id) {
+        log.debug("Deleting Employee with Id: {}", id);
         employeeRepository.deleteById(id);
         return this;
     }
 
     @Override
     public List<Employee> fetchAll() {
-        return employeeRepository.findAll();
+        List<Employee> allEmployees = employeeRepository.findAll();
+        log.debug("Fetched: {}", allEmployees);
+        return allEmployees;
+    }
+
+    @Override
+    public void deleteAll(List<Integer> deleteThese) {
+        List<Employee> deleteCandidates = employeeRepository.findAllById(deleteThese);
+        log.debug("Deleting: {}", deleteCandidates);
+        employeeRepository.deleteAll(deleteCandidates);
     }
 }
