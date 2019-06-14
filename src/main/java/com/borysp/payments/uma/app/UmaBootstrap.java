@@ -21,5 +21,8 @@ public class UmaBootstrap implements CommandLineRunner {
         employeeCRUDService.save(new Employee("Mike", "Myers"));
         employeeCRUDService.save(new Employee("Alfred", "Molina"));
         employeeCRUDService.save(new Employee("Walter", "White"));
+        employeeCRUDService.save(new Employee("Hodor", "Hodor").salary(10000).grade(5));
+        employeeCRUDService.save(new Employee("Lieb", "Shreider").salary(20000).grade(10));
+        employeeCRUDService.save(new Employee("Arthur", "Doyle").salary(2000).grade(2));
     }
 }
