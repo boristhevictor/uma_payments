@@ -1,4 +1,4 @@
-package com.borysp.payments.uma.uma;
+package com.borysp.payments.uma.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
