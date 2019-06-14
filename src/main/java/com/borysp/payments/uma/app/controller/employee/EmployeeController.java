@@ -24,6 +24,14 @@ public class EmployeeController {
         return employeeDTOFacade.returnAllEmployess(EmployeeDTO::new);
     }
 
+    @GetMapping({"/{id}"})
+    public ResponseEntity<EmployeeDTO> getSingle(@PathVariable("id") Integer id) {
+        return employeeDTOFacade.returnSingleEmployee(id, EmployeeDTO::new)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Integer>> delete(@PathVariable("id") Integer id) {
         employeeDTOFacade.deleteForId(id);
