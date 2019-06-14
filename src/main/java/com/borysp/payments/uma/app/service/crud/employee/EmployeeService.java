@@ -3,6 +3,7 @@ package com.borysp.payments.uma.app.service.crud.employee;
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.repository.jpa.employee.EmployeeRepository;
 import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
+import com.borysp.payments.uma.app.service.employee.crud.EmployeeCRUDService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

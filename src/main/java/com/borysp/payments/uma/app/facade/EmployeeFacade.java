@@ -2,7 +2,7 @@ package com.borysp.payments.uma.app.facade;
 
 import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
 import com.borysp.payments.uma.app.model.Employee;
-import com.borysp.payments.uma.app.service.crud.employee.EmployeeCRUDService;
+import com.borysp.payments.uma.app.service.employee.crud.EmployeeCRUDService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
