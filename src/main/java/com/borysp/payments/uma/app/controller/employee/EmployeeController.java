@@ -19,17 +19,17 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeFacade employeeFacade;
-    //private final EmployeeLookupService<EmployeeDTO> employeeLookupService;
+    private final EmployeeLookupService<EmployeeDTO> employeeLookupService;
 
     public EmployeeController(EmployeeFacade employeeFacade, EmployeeLookupService<EmployeeDTO> employeeLookupService) {
         this.employeeFacade = employeeFacade;
-        //this.employeeLookupService = employeeLookupService;
+        this.employeeLookupService = employeeLookupService;
     }
 
     @GetMapping({"/",""})
-    public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel pathQuery) {
-        if(pathQuery!=null) {
-            //return employeeLookupService.findByPathQuery(pathQuery, EmployeeDTO::new);
+    public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel lookup) {
+        if(lookup.shouldLookup()) {
+            return employeeLookupService.findByPathQuery(lookup, EmployeeDTO::new);
         }
         return employeeFacade.returnAllEmployess(EmployeeDTO::new);
     }
