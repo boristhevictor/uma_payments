@@ -8,7 +8,8 @@ public interface CRUDEntityService<E, K> {
 
     E save(Employee employee);
 
-    E update(Employee employee);
+    /*Update method could be used for propagating properties from a detached entity*/
+    E update(Integer id, Employee employee);
 
     /*Experiment with a fluent service for removal chaining*/
     CRUDEntityService<E, K> delete(Integer id);

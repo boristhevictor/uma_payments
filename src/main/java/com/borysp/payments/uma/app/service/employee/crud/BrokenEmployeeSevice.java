@@ -18,7 +18,7 @@ public class BrokenEmployeeSevice implements EmployeeCRUDService {
     }
 
     @Override
-    public Employee update(Employee employee) {
+    public Employee update(Integer id, Employee employee) {
         throw new RuntimeException("Unable to update");
     }
 
