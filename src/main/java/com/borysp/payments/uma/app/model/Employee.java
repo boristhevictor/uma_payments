@@ -6,7 +6,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-@SuppressWarnings("WeakerAccess")
+import javax.persistence.Entity;
+
+@Entity
 @Data
 @Accessors(fluent = true, chain = true)
 @NoArgsConstructor
