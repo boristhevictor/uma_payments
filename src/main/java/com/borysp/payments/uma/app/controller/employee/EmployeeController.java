@@ -1,6 +1,7 @@
 package com.borysp.payments.uma.app.controller.employee;
 
 import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
+import com.borysp.payments.uma.app.controller.employee.error.EmployeeNotFoundException;
 import com.borysp.payments.uma.app.facade.EmployeeFacade;
 import com.borysp.payments.uma.app.model.Employee;
 import org.springframework.http.ResponseEntity;
@@ -14,41 +15,46 @@ import java.util.Map;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeFacade employeeDTOFacade;
+    private final EmployeeFacade employeeFacade;
 
-    public EmployeeController(EmployeeFacade employeeDTOFacade) {
-        this.employeeDTOFacade = employeeDTOFacade;
+    public EmployeeController(EmployeeFacade employeeFacade) {
+        this.employeeFacade = employeeFacade;
     }
 
     @GetMapping({"/",""})
     public List<EmployeeDTO> getAll() {
-        return employeeDTOFacade.returnAllEmployess(EmployeeDTO::new);
+        return employeeFacade.returnAllEmployess(EmployeeDTO::new);
+    }
+
+    @PostMapping
+    public EmployeeDTO createSingle(@RequestBody EmployeeDTO created) {
+        return new EmployeeDTO(employeeFacade.createAnewEmployee(employeeFacade.fromDTO(created)));
     }
 
     @GetMapping({"/{id}"})
     public ResponseEntity<EmployeeDTO> getSingle(@PathVariable("id") Integer id) {
-        return employeeDTOFacade.returnSingleEmployee(id, EmployeeDTO::new)
+        return employeeFacade.returnSingleEmployee(id, EmployeeDTO::new)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
 
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<EmployeeDTO> updateSingle(@RequestBody EmployeeDTO updated, @PathVariable("id") Integer id) {
-        Employee employee = employeeDTOFacade.fromDTO(updated);
-        return employeeDTOFacade.updateSingleEmployee(id, employee)
+        Employee employee = employeeFacade.fromDTO(updated);
+        return employeeFacade.updateSingleEmployee(id, employee)
                 .map(e -> ResponseEntity.ok(new EmployeeDTO(e)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Integer>> delete(@PathVariable("id") Integer id) {
-        employeeDTOFacade.deleteForId(id);
-        return ResponseEntity.ok(wrapId(id));
+        employeeFacade.deleteIfExistsWithId(id);
+        return respondOKWithId(id);
     }
 
-    private Map<String, Integer> wrapId(@PathVariable("id") Integer id) {
-        return Collections.singletonMap("id", id);
+    private ResponseEntity<Map<String, Integer>> respondOKWithId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(Collections.singletonMap("id", id));
     }
 
 }

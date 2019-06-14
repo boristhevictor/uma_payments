@@ -34,7 +34,7 @@ public class EmployeeFacade {
                 .collect(Collectors.toList());
     }
 
-    public void deleteForId(Integer... deleteThis) {
+    public void deleteIfExistsWithId(Integer... deleteThis) {
         if(deleteThis!=null) {
             employeeCRUDService.deleteAll(Arrays.asList(deleteThis));
         }
@@ -61,4 +61,8 @@ public class EmployeeFacade {
 
     }
 
+    public Employee createAnewEmployee(Employee createCandidate) {
+        createCandidate.setId(null);
+        return employeeCRUDService.save(createCandidate);
+    }
 }
