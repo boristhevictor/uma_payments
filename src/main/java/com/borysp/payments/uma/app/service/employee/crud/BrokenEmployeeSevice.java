@@ -5,12 +5,14 @@ import com.borysp.payments.uma.app.service.crud.CRUDEntityService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Profile("failTests")
 public class BrokenEmployeeSevice implements EmployeeCRUDService {
 
     @Override
-    public Employee fetch(Integer id) {
+    public Optional<Employee> fetch(Integer id) {
         throw new RuntimeException("Unable to fetch");
     }
 
@@ -20,7 +22,7 @@ public class BrokenEmployeeSevice implements EmployeeCRUDService {
     }
 
     @Override
-    public Employee update(Integer id, Employee employee) {
+    public Optional<Employee> update(Integer id, Employee employee) {
         throw new RuntimeException("Unable to update");
     }
 
