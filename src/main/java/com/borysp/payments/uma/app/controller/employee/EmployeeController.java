@@ -2,11 +2,14 @@ package com.borysp.payments.uma.app.controller.employee;
 
 import com.borysp.payments.uma.app.controller.employee.dto.EmployeeDTO;
 import com.borysp.payments.uma.app.controller.employee.error.EmployeeNotFoundException;
+import com.borysp.payments.uma.app.controller.employee.lookup.EmployeeLookupParamsModel;
 import com.borysp.payments.uma.app.facade.EmployeeFacade;
 import com.borysp.payments.uma.app.model.Employee;
+import com.borysp.payments.uma.app.service.lookup.employee.EmployeeLookupService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -16,13 +19,18 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeFacade employeeFacade;
+    private final EmployeeLookupService<EmployeeDTO> employeeLookupService;
 
-    public EmployeeController(EmployeeFacade employeeFacade) {
+    public EmployeeController(EmployeeFacade employeeFacade, EmployeeLookupService<EmployeeDTO> employeeLookupService) {
         this.employeeFacade = employeeFacade;
+        this.employeeLookupService = employeeLookupService;
     }
 
     @GetMapping({"/",""})
-    public List<EmployeeDTO> getAll() {
+    public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel lookup) {
+        if(lookup.shouldLookup()) {
+            return employeeLookupService.findByPathQuery(lookup, EmployeeDTO::new);
+        }
         return employeeFacade.returnAllEmployess(EmployeeDTO::new);
     }
 
