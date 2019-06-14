@@ -17,7 +17,11 @@ public class EmployeeTest {
     }
 
     private Employee getTestEmployee(int grade, int salary, String name, String surname) {
-        return new Employee();
+        return new Employee()
+                .grade(grade)
+                .salary(salary)
+                .name(name)
+                .surname(surname);
     }
 
     @Test
@@ -40,7 +44,8 @@ public class EmployeeTest {
                 .contains("salary")
                 .contains("grade")
                 .contains("name")
-                .contains("surname");
+                .contains("surname")
+                .contains("id");
     }
 
 }
