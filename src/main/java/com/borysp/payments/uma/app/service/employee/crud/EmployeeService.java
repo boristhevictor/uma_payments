@@ -13,6 +13,7 @@ import static java.util.Objects.*;
 
 @Service
 @Primary
+@Transactional
 public class EmployeeService implements EmployeeCRUDService {
 
     private EmployeeRepository employeeRepository;
@@ -35,7 +36,6 @@ public class EmployeeService implements EmployeeCRUDService {
     }
 
     @Override
-    @Transactional
     public Optional<Employee> update(Integer id, Employee employee) {
         Optional<Employee> updateCandidate;
         if(id==null || employee==null){

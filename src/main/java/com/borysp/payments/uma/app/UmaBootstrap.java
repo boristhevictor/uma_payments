@@ -2,12 +2,13 @@ package com.borysp.payments.uma.app;
 
 import com.borysp.payments.uma.app.model.Employee;
 import com.borysp.payments.uma.app.service.employee.crud.EmployeeCRUDService;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UmaBootstrap implements ApplicationRunner {
+@Profile("bootstrap")
+public class UmaBootstrap implements CommandLineRunner {
 
     private EmployeeCRUDService employeeCRUDService;
 
@@ -16,8 +17,9 @@ public class UmaBootstrap implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        employeeCRUDService.save(new Employee("Harrison", "Ford"));
+    public void run(String... args) throws Exception {
+        employeeCRUDService.save(new Employee("Mike", "Myers"));
+        employeeCRUDService.save(new Employee("Alfred", "Molina"));
+        employeeCRUDService.save(new Employee("Walter", "White"));
     }
-
 }
