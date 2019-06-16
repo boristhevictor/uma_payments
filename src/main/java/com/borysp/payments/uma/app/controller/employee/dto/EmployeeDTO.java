@@ -1,10 +1,7 @@
 package com.borysp.payments.uma.app.controller.employee.dto;
 
 import com.borysp.payments.uma.app.model.Employee;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 @Getter
@@ -12,20 +9,24 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class EmployeeDTO {
 
-    int id;
-    int grade;
-    int salary;
-    String name;
-    String surname;
+    private int id;
+    private int grade;
+    private int salary;
+    private String name;
+    private String surname;
 
     public EmployeeDTO(Employee employee) {
+        if(employee == null) {
+            throw new IllegalArgumentException("Unable to create DTO from a null Employee");
+        }
         this.setId(employee.getId())
-                .setGrade(employee.getGrade())
-                .setSalary(employee.getSalary())
-                .setName(employee.getName())
-                .setSurname(employee.getSurname());
+            .setGrade(employee.getGrade())
+            .setSalary(employee.getSalary())
+            .setName(employee.getName())
+            .setSurname(employee.getSurname());
     }
 
 }

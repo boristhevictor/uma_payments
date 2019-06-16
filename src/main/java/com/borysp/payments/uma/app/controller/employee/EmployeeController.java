@@ -27,7 +27,7 @@ public class EmployeeController {
     }
 
     @GetMapping({"/",""})
-    public List<EmployeeDTO> findSimpleCondition(@Valid EmployeeLookupParamsModel lookup) {
+    public List<EmployeeDTO> getBulk(@Valid EmployeeLookupParamsModel lookup) {
         if(lookup.shouldLookup()) {
             return employeeLookupService.findByPathQuery(lookup, EmployeeDTO::new);
         }
@@ -44,7 +44,6 @@ public class EmployeeController {
         return employeeFacade.returnSingleEmployee(id, EmployeeDTO::new)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
-
     }
 
     @PutMapping(value = "/{id}")
@@ -61,7 +60,7 @@ public class EmployeeController {
         return respondOKWithId(id);
     }
 
-    private ResponseEntity<Map<String, Integer>> respondOKWithId(@PathVariable("id") Integer id) {
+    private ResponseEntity<Map<String, Integer>> respondOKWithId(Integer id) {
         return ResponseEntity.ok(Collections.singletonMap("id", id));
     }
 

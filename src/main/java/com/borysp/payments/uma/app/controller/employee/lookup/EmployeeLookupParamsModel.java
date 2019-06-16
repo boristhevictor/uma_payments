@@ -14,11 +14,11 @@ import java.util.stream.Stream;
 @Setter
 public class EmployeeLookupParamsModel {
 
-    Set<String> id;
-    Set<String> grade;
-    Set<String> salary;
-    Set<String> surname;
-    Set<String> name;
+    private Set<String> id;
+    private Set<String> grade;
+    private Set<String> salary;
+    private Set<String> surname;
+    private Set<String> name;
 
     public Map<String, Set<String>> asMap() {
         Map<String, Set<String>> result = new HashMap<>();

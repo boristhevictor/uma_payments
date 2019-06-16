@@ -48,7 +48,7 @@ public class EmployeeServiceTest {
         int id=0;
         Employee employee = new Employee("Adrien", "Monk").setGrade(1).setSalary(25000);
         //when
-        Mockito.doReturn(Optional.of(employee)).when(employeeRepository).findById(id);
+        Mockito.doReturn(Optional.of(new Employee())).when(employeeRepository).findById(id);
         Employee result = employeeService.update(id, employee).get();
         //then
         Mockito.verify(employeeRepository, Mockito.times(1)).findById(id);

@@ -54,7 +54,7 @@ public class EmployeeFacade {
 
     public <R> Optional<R> returnSingleEmployee(Integer id, Function<? super Employee, R> mapping) {
         Optional<Employee> fetched = employeeCRUDService.fetch(id);
-        if(fetched.isEmpty()) {
+        if(!fetched.isPresent()) {
             return Optional.empty();
         }
         return fetched.map(mapping);
