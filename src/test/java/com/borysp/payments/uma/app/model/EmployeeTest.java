@@ -18,10 +18,10 @@ public class EmployeeTest {
 
     private Employee getTestEmployee(int grade, int salary, String name, String surname) {
         return new Employee()
-                .grade(grade)
-                .salary(salary)
-                .name(name)
-                .surname(surname);
+                .setGrade(grade)
+                .setSalary(salary)
+                .setName(name)
+                .setSurname(surname);
     }
 
     @Test
